@@ -116,7 +116,7 @@
     "node-fetch": "^2.7.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^14.1.1",
+    "@angular-devkit/build-angular": "^18.0.4",
     "@angular-eslint/builder": "^14.0.0",
     "@angular-eslint/eslint-plugin": "^14.1.2",
     "@angular-eslint/eslint-plugin-template": "^14.0.2",
@@ -128,7 +128,7 @@
     "@angular/common": "^14.1.1",
     "@angular/compiler": "^14.1.1",
     "@angular/compiler-cli": "^14.1.1",
-    "@angular/core": "^14.1.1",
+    "@angular/core": "^14.1.2",
     "@angular/forms": "^14.1.1",
     "@angular/language-service": "^14.2.4",
     "@angular/material": "^14.1.1",
@@ -168,7 +168,7 @@
     "@typescript-eslint/parser": "5.62.0",
     "angular-material-css-vars": "^3.0.0",
     "angular2-promise-buttons": "^5.0.3",
-    "axios": "^1.6.0",
+    "axios": "^1.7.0",
     "chart.js": "^2.8.0",
     "chromedriver": "^122.0.4",
     "chrono-node": "^2.6.2",
@@ -214,7 +214,7 @@
     "ng2-dragula": "^2.1.1",
     "ngx-date-time-picker-schedule": "^9.4.17",
     "ngx-markdown": "^14.0.1",
-    "nightwatch": "^1.7.13",
+    "nightwatch": "^3.6.3",
     "object-path": "^0.11.8",
     "p-throttle": "^3.1.0",
     "prettier": "^2.7.1",
@@ -228,7 +228,7 @@
     "tslib": "^2.4.1",
     "typescript": "~4.7.4",
     "utils-decorators": "^2.0.3",
-    "webdav": "~4.3.0",
+    "webdav": "~4.11.3",
     "zone.js": "~0.11.8"
   },
   "resolutions": {
