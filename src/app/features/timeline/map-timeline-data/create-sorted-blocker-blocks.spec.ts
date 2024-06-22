@@ -1,12 +1,13 @@
 import { createSortedBlockerBlocks } from './create-sorted-blocker-blocks';
 import { TaskReminderOptionId, TaskWithReminder } from '../../tasks/task.model';
 import { getDateTimeFromClockString } from '../../../util/get-date-time-from-clock-string';
-import { TimelineCalendarMapEntry, BlockedBlockType } from '../timeline.model';
+import { BlockedBlockType, TimelineCalendarMapEntry } from '../timeline.model';
 import {
   DEFAULT_TASK_REPEAT_CFG,
   TaskRepeatCfg,
 } from '../../task-repeat-cfg/task-repeat-cfg.model';
 import { getWorklogStr } from '../../../util/get-work-log-str';
+/* eslint-disable @typescript-eslint/naming-convention */
 
 const minutes = (n: number): number => n * 60 * 1000;
 const hours = (n: number): number => 60 * minutes(n);
@@ -785,6 +786,7 @@ describe('createBlockerBlocks()', () => {
         undefined,
         0,
       );
+
       expect(r.length).toEqual(5);
       expect(r[0].start).toEqual(
         getDateTimeFromClockString('10:00', 24 * 60 * 60 * 1000),

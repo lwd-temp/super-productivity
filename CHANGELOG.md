@@ -1,3 +1,66 @@
+## [8.0.10](https://github.com/johannesjo/super-productivity/compare/v8.0.9...v8.0.10) (2024-06-17)
+
+### Bug Fixes
+
+- cannot read properties of undefined reading color [#3208](https://github.com/johannesjo/super-productivity/issues/3208) ([72a625a](https://github.com/johannesjo/super-productivity/commit/72a625ae7037ba03442c19c0477793a16e224b61))
+- zoomFactor error value [#3218](https://github.com/johannesjo/super-productivity/issues/3218) ([70f1f72](https://github.com/johannesjo/super-productivity/commit/70f1f725550a66f1a3390e0777bfaef4a0b71947))
+
+## [8.0.9](https://github.com/johannesjo/super-productivity/compare/v8.0.8...v8.0.9) (2024-6-13)
+
+## [8.0.8](https://github.com/johannesjo/super-productivity/compare/v8.0.7...v8.0.8) (2024-6-13)
+
+### Bug Fixes
+
+- also consider subtask tags when restoring from archive [#3205](https://github.com/johannesjo/super-productivity/issues/3205) ([1057466](https://github.com/johannesjo/super-productivity/commit/10574665e7bff2131ddf92658bf6a55beefdc366))
+- also filter out subtask tags when moving a task to archive [#3205](https://github.com/johannesjo/super-productivity/issues/3205) ([eb2b08c](https://github.com/johannesjo/super-productivity/commit/eb2b08c73e97c678c0a7c3e9c58b1a2cc5515f20))
+- auto prefixer warning ([5026fcb](https://github.com/johannesjo/super-productivity/commit/5026fcb1f2956bcc979736c370a0420fb382dd77))
+- creation not working [#2694](https://github.com/johannesjo/super-productivity/issues/2694) ([8ddd703](https://github.com/johannesjo/super-productivity/commit/8ddd703a188cd4c96ad483af8b70d0bb1b9bcc90))
+- inconsistent display of info ([2a444f8](https://github.com/johannesjo/super-productivity/commit/2a444f80f949952d095f4686e78d79bd1fae537a))
+- mac icon [#3213](https://github.com/johannesjo/super-productivity/issues/3213) ([9a3de92](https://github.com/johannesjo/super-productivity/commit/9a3de9282fdaf3ab04d5c84764218b6b09055bbb))
+- remove copying over legacy snap data to avoid SingletonCookie issue [#326](https://github.com/johannesjo/super-productivity/issues/326) [#3069](https://github.com/johannesjo/super-productivity/issues/3069) [#3159](https://github.com/johannesjo/super-productivity/issues/3159) ([337a5fd](https://github.com/johannesjo/super-productivity/commit/337a5fd9d7d5afaff1b6af97c9aec88811cf9616))
+- some parts not being clickable for mac os ([a8a7d2e](https://github.com/johannesjo/super-productivity/commit/a8a7d2e07a6f83c201da833d0fe769f9a6d98fb1))
+
+### Features
+
+- add for YEARS [#2694](https://github.com/johannesjo/super-productivity/issues/2694) ([2e5b7e8](https://github.com/johannesjo/super-productivity/commit/2e5b7e89291f34a1ed35e6612044771e9cf0bd89))
+- add quote ([f3ecc74](https://github.com/johannesjo/super-productivity/commit/f3ecc74501d4bf73cba23744bb82e7ab8bdffd5a))
+- change wording [#3141](https://github.com/johannesjo/super-productivity/issues/3141) ([408cc77](https://github.com/johannesjo/super-productivity/commit/408cc7721ee5541f4c66a254bfd71fae7102a408))
+- implement new function into existing flows [#2694](https://github.com/johannesjo/super-productivity/issues/2694) ([d7ac79c](https://github.com/johannesjo/super-productivity/commit/d7ac79c3be7756fc13818c52c40847583f036c21))
+- improve test cases and fix edge case [#2694](https://github.com/johannesjo/super-productivity/issues/2694) ([2ad4b88](https://github.com/johannesjo/super-productivity/commit/2ad4b880b9a8e515c6d0a61867017eeb9733aa2e))
+- include overdue repeatable tasks in daily creation [#2694](https://github.com/johannesjo/super-productivity/issues/2694) ([8fab0f2](https://github.com/johannesjo/super-productivity/commit/8fab0f2e4ba111218797f6c9e683dd4123903070))
+- make another edge case work [#2694](https://github.com/johannesjo/super-productivity/issues/2694) ([f85fe28](https://github.com/johannesjo/super-productivity/commit/f85fe280eb0f1344c7d8ff12cbebb2b7f8d51710))
+- make it more clear when adding a task ([69540e4](https://github.com/johannesjo/super-productivity/commit/69540e41c69a36ed80fd2ed0f9dc8dc48157ff1b))
+- make weekly work [#2694](https://github.com/johannesjo/super-productivity/issues/2694) ([69a5fec](https://github.com/johannesjo/super-productivity/commit/69a5fec4ce328ffc9357e8d66141de49d362cccb))
+- make weekly work as it should [#2694](https://github.com/johannesjo/super-productivity/issues/2694) ([b91f6db](https://github.com/johannesjo/super-productivity/commit/b91f6db006139db6936db5f132d57752960844b6))
+- make yearly work and add test cases [#2694](https://github.com/johannesjo/super-productivity/issues/2694) ([2d405a0](https://github.com/johannesjo/super-productivity/commit/2d405a080a549d1d023dbe4d9f75b332eaa71df8))
+- outline monthly check [#2694](https://github.com/johannesjo/super-productivity/issues/2694) ([a7971e7](https://github.com/johannesjo/super-productivity/commit/a7971e706d6d2f8e5f7c9c6b0f9ff2e1bfab1574))
+- prevent multi instance in web [#2987](https://github.com/johannesjo/super-productivity/issues/2987) ([14fcefa](https://github.com/johannesjo/super-productivity/commit/14fcefaafa652492ab6c4db8125f85db95fdbb26))
+- update short description ([e59631b](https://github.com/johannesjo/super-productivity/commit/e59631bbb1526e793ba232085e648c5c054fb614))
+
+## [8.0.7](https://github.com/johannesjo/super-productivity/compare/v8.0.6...v8.0.7) (2024-05-31)
+
+## [8.0.6](https://github.com/johannesjo/super-productivity/compare/v8.0.4...v8.0.6) (2024-05-31)
+
+### Bug Fixes
+
+- accessibility issue [#3129](https://github.com/johannesjo/super-productivity/issues/3129) ([4557a5f](https://github.com/johannesjo/super-productivity/commit/4557a5f2a18a52657da4d40d8c0cc922fc4562fc))
+- make current work context title clickable on mac ([e914397](https://github.com/johannesjo/super-productivity/commit/e91439701870a610775e62dcf23f3118d93090e0))
+- status bar flickering [#3131](https://github.com/johannesjo/super-productivity/issues/3131) ([fc3dcc7](https://github.com/johannesjo/super-productivity/commit/fc3dcc7f07d5dc4573bdbba3869ffeb0ce32c314))
+- wrong task on focus mode [#3194](https://github.com/johannesjo/super-productivity/issues/3194) ([cba0b9f](https://github.com/johannesjo/super-productivity/commit/cba0b9f442c0d46c35e94767ac1ba522fcc0824e))
+
+### Features
+
+- add getNewestPossibleDueDate utility function for DAILY [#2694](https://github.com/johannesjo/super-productivity/issues/2694) ([3e5e305](https://github.com/johannesjo/super-productivity/commit/3e5e305e9fea2acf913e7d0c90d3fe1c397b4582))
+- added lunch break to timeline [#3125](https://github.com/johannesjo/super-productivity/issues/3125) ([03ade7e](https://github.com/johannesjo/super-productivity/commit/03ade7e5128ce7f26a7290aab87e494d361a0816))
+- also include done tasks for idle time dialog [#3135](https://github.com/johannesjo/super-productivity/issues/3135) ([2d04ede](https://github.com/johannesjo/super-productivity/commit/2d04ede28d25446f5574d41b29231a0efb07babb))
+- filter out undone tasks without time for worklog [#3122](https://github.com/johannesjo/super-productivity/issues/3122) ([840c243](https://github.com/johannesjo/super-productivity/commit/840c2438f6c4ff95273735c02f048e96be2c671a))
+- improve on add button [#3129](https://github.com/johannesjo/super-productivity/issues/3129) ([0920c8a](https://github.com/johannesjo/super-productivity/commit/0920c8af5e45287137958b94bdb54841c0a48676))
+- make add task bar smarter ([087be06](https://github.com/johannesjo/super-productivity/commit/087be0615cfb861ca50d8378f4ae0c06ffbb4434))
+- outline getNewestPossibleDueDate utility function for WEEKLY [#2694](https://github.com/johannesjo/super-productivity/issues/2694) ([eaac9b3](https://github.com/johannesjo/super-productivity/commit/eaac9b3fadd740145ebf41fa678d68e68bc61ef4))
+- set doneOn date as parent date if sub task was not done when moving to archive [#3122](https://github.com/johannesjo/super-productivity/issues/3122) ([fb50e26](https://github.com/johannesjo/super-productivity/commit/fb50e26e7c6f82317b7bee71a2c6bf292334298f))
+- show project color and title for today tag worklog ([5528cdd](https://github.com/johannesjo/super-productivity/commit/5528cdd6d56b3c5a5fa8072380cfc343046735d4)), closes [#2933](https://github.com/johannesjo/super-productivity/issues/2933)
+- use doneOn over created date when creating worklog items [#3122](https://github.com/johannesjo/super-productivity/issues/3122) ([f3b0c66](https://github.com/johannesjo/super-productivity/commit/f3b0c665e6a505b392865cc4c1964e64e49a0e4b))
+
 ## [8.0.5](https://github.com/johannesjo/super-productivity/compare/v8.0.4...v8.0.5) (2024-04-12)
 
 ### Features

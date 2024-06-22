@@ -6,6 +6,40 @@
   &:focus {
     outline: none;
   }
+
+  &::ng-deep task ::ng-deep {
+    margin: 2px;
+
+    .parent-title {
+      display: none;
+    }
+
+    tag-list {
+      display: none;
+    }
+
+    .drag-handle {
+      // since not draggable
+      display: none;
+    }
+
+    .title-and-tags-wrapper {
+      margin-left: $s * 2;
+    }
+
+    .box {
+      @include lightTheme {
+        border-color: $light-theme-extra-border-color;
+        bottom: 0;
+        top: -1px;
+      }
+
+      @include darkTheme {
+        box-shadow: $whiteframe-shadow-1dp;
+        background: $dark12 !important;
+      }
+    }
+  }
 }
 
 // SHARED
@@ -65,6 +99,10 @@ mat-expansion-panel::ng-deep .mat-expansion-panel-header:not(.mat-expanded),
 // PANEL
 // -----
 :host::ng-deep {
+  .mat-expansion-panel:not([class*='mat-elevation-z']) {
+    box-shadow: none;
+  }
+
   .mat-expansion-panel-body {
     padding: 0;
   }
@@ -75,7 +113,7 @@ mat-expansion-panel::ng-deep .mat-expansion-panel-header:not(.mat-expanded),
   }
 
   .mat-expansion-panel-header-title {
-    flex-grow: 0;
+    flex-grow: 1;
     display: flex;
     align-items: center;
     overflow: hidden;

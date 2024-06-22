@@ -38,7 +38,7 @@ import { TagService } from '../../tag/tag.service';
 import { ProjectService } from '../../project/project.service';
 import { Tag } from '../../tag/tag.model';
 import { Project } from '../../project/project.model';
-import { shortSyntaxToTags } from './short-syntax-to-tags';
+import { ShortSyntaxTag, shortSyntaxToTags } from './short-syntax-to-tags';
 import { slideAnimation } from '../../../ui/animations/slide.ani';
 import { blendInOutAnimation } from 'src/app/ui/animations/blend-in-out.ani';
 import { fadeAnimation } from '../../../ui/animations/fade.ani';
@@ -106,37 +106,46 @@ export class AddTaskBarComponent implements AfterViewInit, OnDestroy {
     new BehaviorSubject<AddTaskSuggestion | null>(null);
   activatedIssueTask: AddTaskSuggestion | null = null;
 
-  shortSyntaxTags: {
-    title: string;
-    color: string;
-    icon: string;
-  }[] = [];
-  shortSyntaxTags$: Observable<
-    {
-      title: string;
-      color: string;
-      icon: string;
-    }[]
-  > = this.taskSuggestionsCtrl.valueChanges.pipe(
-    filter((val) => typeof val === 'string'),
-    withLatestFrom(
-      this._tagService.tags$,
-      this._projectService.list$,
-      this._workContextService.activeWorkContext$,
-    ),
-    map(([val, tags, projects, activeWorkContext]) =>
-      shortSyntaxToTags({
-        val,
-        tags,
-        projects,
-        defaultColor: activeWorkContext.theme.primary,
-      }),
-    ),
-    startWith([]),
-  );
+  shortSyntaxTags: ShortSyntaxTag[] = [];
+  shortSyntaxTags$: Observable<ShortSyntaxTag[]> =
+    this.taskSuggestionsCtrl.valueChanges.pipe(
+      filter((val) => typeof val === 'string'),
+      withLatestFrom(
+        this._tagService.tags$,
+        this._projectService.list$,
+        this._workContextService.activeWorkContext$,
+      ),
+      map(([val, tags, projects, activeWorkContext]) =>
+        shortSyntaxToTags({
+          val,
+          tags,
+          projects,
+          defaultColor: activeWorkContext.theme.primary,
+        }),
+      ),
+      startWith([]),
+    );
 
   inputVal: string = '';
   inputVal$: Observable<string> = this.taskSuggestionsCtrl.valueChanges;
+
+  isAddToBacklogAvailable$: Observable<boolean> = this.shortSyntaxTags$.pipe(
+    switchMap((shortSyntaxTags) => {
+      const shortSyntaxProjectId =
+        shortSyntaxTags.length &&
+        shortSyntaxTags.find((tag: ShortSyntaxTag) => tag.projectId)?.projectId;
+
+      if (typeof shortSyntaxProjectId === 'string') {
+        return this._projectService
+          .getByIdOnce$(shortSyntaxProjectId)
+          .pipe(map((project) => project.isEnableBacklog));
+      }
+
+      return this._workContextService.activeWorkContext$.pipe(
+        map((ctx) => !!ctx.isEnableBacklog),
+      );
+    }),
+  );
 
   private _isAddInProgress?: boolean;
   private _blurTimeout?: number;
@@ -163,21 +172,8 @@ export class AddTaskBarComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    // for android we need to make sure that a focus event is called to open the keyboard
     if (!this.isDisableAutoFocus) {
-      if (IS_ANDROID_WEB_VIEW) {
-        document.body.focus();
-        (this.inputEl as ElementRef).nativeElement.focus();
-        this._autofocusTimeout = window.setTimeout(() => {
-          document.body.focus();
-          (this.inputEl as ElementRef).nativeElement.focus();
-        }, 1000);
-      } else {
-        // for non mobile we don't need this, since it's much faster
-        this._autofocusTimeout = window.setTimeout(() => {
-          (this.inputEl as ElementRef).nativeElement.focus();
-        });
-      }
+      this._focusInput();
     }
 
     this._attachKeyDownHandlerTimeout = window.setTimeout(() => {
@@ -186,6 +182,8 @@ export class AddTaskBarComponent implements AfterViewInit, OnDestroy {
         (ev: KeyboardEvent) => {
           if (ev.key === 'Escape') {
             this.blurred.emit();
+            // needs to be set otherwise the activatedIssueTask won't reflect the task that is added
+            this.activatedIssueTask$.next(null);
           } else if (ev.key === '1' && ev.ctrlKey) {
             this.isAddToBacklog = !this.isAddToBacklog;
             this._cd.detectChanges();
@@ -230,10 +228,6 @@ export class AddTaskBarComponent implements AfterViewInit, OnDestroy {
     this._subs.unsubscribe();
   }
 
-  closeBtnClose(ev: Event): void {
-    this.blurred.emit(ev);
-  }
-
   onOptionActivated(val: any): void {
     this.activatedIssueTask$.next(val);
   }
@@ -249,10 +243,7 @@ export class AddTaskBarComponent implements AfterViewInit, OnDestroy {
         className.includes('shepherd-enabled');
     }
 
-    if (
-      !relatedTarget ||
-      (relatedTarget && !relatedTarget.className.includes('close-btn') && !isUIelement)
-    ) {
+    if (!relatedTarget || (relatedTarget && !isUIelement)) {
       sessionStorage.setItem(
         SS.TODO_TMP,
         (this.inputEl as ElementRef).nativeElement.value,
@@ -260,24 +251,21 @@ export class AddTaskBarComponent implements AfterViewInit, OnDestroy {
     }
     if (relatedTarget && isUIelement) {
       (this.inputEl as ElementRef).nativeElement.focus();
-    } else if (relatedTarget && relatedTarget.className.includes('mat-option')) {
-      this._blurTimeout = window.setTimeout(() => {
-        if (!this._isAddInProgress) {
-          this.blurred.emit(ev);
-        }
-      }, 300);
     } else {
-      this.blurred.emit(ev);
+      // we need to wait since otherwise addTask is not working
+      this._blurTimeout = window.setTimeout(() => {
+        if (this._isAddInProgress) {
+          this._blurTimeout = window.setTimeout(() => {
+            this.blurred.emit(ev);
+          }, 300);
+        }
+      }, 20);
     }
   }
 
   displayWith(issue?: JiraIssue): string | undefined {
     // NOTE: apparently issue can be undefined for displayWith
     return issue?.summary;
-  }
-
-  trackByFn(i: number, item: AddTaskSuggestion): string | number | undefined {
-    return item.taskId || (item.issueData && item.issueData.id);
   }
 
   trackById(i: number, item: any): string {
@@ -377,6 +365,7 @@ export class AddTaskBarComponent implements AfterViewInit, OnDestroy {
 
     this.taskSuggestionsCtrl.setValue('');
     this._isAddInProgress = false;
+    this._focusInput();
   }
 
   private async _getCtxForTaskSuggestion({
@@ -391,6 +380,23 @@ export class AddTaskBarComponent implements AfterViewInit, OnDestroy {
         throw new Error('No first tag');
       }
       return await this._tagService.getTagById$(firstTagId).pipe(first()).toPromise();
+    }
+  }
+
+  private _focusInput(): void {
+    // for android we need to make sure that a focus event is called to open the keyboard
+    if (IS_ANDROID_WEB_VIEW) {
+      document.body.focus();
+      (this.inputEl as ElementRef).nativeElement.focus();
+      this._autofocusTimeout = window.setTimeout(() => {
+        document.body.focus();
+        (this.inputEl as ElementRef).nativeElement.focus();
+      }, 1000);
+    } else {
+      // for non mobile we don't need this, since it's much faster
+      this._autofocusTimeout = window.setTimeout(() => {
+        (this.inputEl as ElementRef).nativeElement.focus();
+      });
     }
   }
 

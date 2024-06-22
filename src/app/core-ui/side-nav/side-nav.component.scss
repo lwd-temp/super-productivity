@@ -13,10 +13,6 @@ $spacer: $s;
   min-height: 100vh;
   // mobile viewport bug fix
   min-height: -webkit-fill-available;
-
-  ::ng-deep .mat-menu-item mat-icon {
-    margin-bottom: 2px;
-  }
 }
 
 @media (min-width: $side-nav-width-switch-l) {
@@ -31,6 +27,7 @@ $spacer: $s;
   button {
     height: 44px !important;
     line-height: 44px !important;
+    min-height: 44px !important;
   }
 
   a {
@@ -144,11 +141,20 @@ section {
   button:last-of-type {
     border-radius: 0;
     align-self: stretch;
-    display: block;
-    height: auto;
+    display: inline-flex;
     min-width: 48px;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
 
-    @include mq(xs) {
+    .mat-mdc-button-touch-target {
+      width: 40px;
+      height: 40px;
+    }
+
+    @include mousePrimaryDevice {
       opacity: 0;
       display: none;
     }
@@ -157,8 +163,10 @@ section {
   &:focus,
   &:hover {
     button:last-of-type {
-      opacity: 0.8;
-      display: block;
+      @include mousePrimaryDevice {
+        opacity: 0.8;
+        display: inline-flex;
+      }
     }
   }
 }
@@ -195,23 +203,18 @@ section {
 }
 
 .tag-settings-btn,
-.tag button:first-of-type,
-.project-settings-btn,
-.project button:first-of-type,
-.route-link {
-  &:focus,
-  &:hover {
-    font-weight: bold;
+.project-settings-btn {
+  border-radius: 0 !important;
 
-    @include lightTheme {
-      background: rgba(
-        var(--palette-background-hover),
-        var(--palette-background-hover-alpha, 1)
-      );
+  ::ng-deep {
+    .mat-mdc-button-persistent-ripple {
+      border-radius: 0 !important;
     }
-    @include darkTheme {
-      background: rgba(255, 255, 255, 0.1);
-    }
+  }
+
+  .project-settings-btn,
+  .tag-settings-btn {
+    border-radius: 0;
   }
 }
 
@@ -265,6 +268,7 @@ section {
     margin-left: auto;
     margin-right: 0;
     transition: $transition-standard;
+    order: 2;
   }
 
   &.isExpanded ::ng-deep mat-icon:last-of-type {
